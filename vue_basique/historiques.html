@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Historique des recherches - CO2 Émissions</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .history-item {
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      .history-item:hover {
+        background-color: #f8f9fa;
+      }
+      .active-item {
+        background-color: #e9ecef;
+      }
+      .transport-mode {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #dee2e6;
+      }
+      .transport-mode:hover {
+        background-color: #f8f9fa;
+      }
+      .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+      }
+      .spinner-border {
+        width: 3rem;
+        height: 3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Conteneur pour les notifications -->
+    <div class="notification-container" id="notification-container"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm p-3">
+      <a class="navbar-brand fw-bold" href="index.html" id="refresh-page"
+        >🌱 Eco-Calculateur</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="apropos.html">À propos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#" id="history-link"
+              >Historiques</a
+            >
+          </li>
+
+          <!-- Bouton Login (si non connecté) ou Logout (si connecté) -->
+          <li class="nav-item">
+            <a
+              id="login-btn"
+              class="btn btn-success text-white ms-2"
+              href="login.html"
+            >
+              <i class="fas fa-sign-in-alt me-1"></i>Connexion
+            </a>
+            <a
+              id="logout-btn"
+              class="btn btn-danger text-white ms-2"
+              href="#"
+              style="display: none"
+            >
+              <i class="fas fa-sign-out-alt me-1"></i>Déconnexion
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <h1 class="mb-4">Historique des recherches CO2</h1>
+
+      <!-- Section de l'historique -->
+      <div class="row">
+        <!-- Liste des recherches -->
+        <div class="col-md-4">
+          <div class="card">
+            <div
+              class="card-header bg-info text-white d-flex justify-content-between align-items-center"
+            >
+              <h5 class="card-title mb-0">Mes recherches</h5>
+              <button id="refresh-btn" class="btn btn-sm btn-light">
+                <i class="fas fa-sync-alt"></i> Actualiser
+              </button>
+            </div>
+            <div class="card-body p-0">
+              <div id="history-loading" class="loading">
+                <div class="spinner-border text-info" role="status">
+                  <span class="visually-hidden">Chargement...</span>
+                </div>
+              </div>
+              <ul id="history-list" class="list-group list-group-flush">
+                <!-- Les éléments d'historique seront ajoutés ici -->
+              </ul>
+              <div id="pagination" class="p-3 d-flex justify-content-between">
+                <button
+                  id="prev-page"
+                  class="btn btn-sm btn-outline-secondary"
+                  disabled
+                >
+                  <i class="fas fa-chevron-left"></i> Précédent
+                </button>
+                <span id="page-info" class="align-self-center"
+                  >Page 1 sur 1</span
+                >
+                <button
+                  id="next-page"
+                  class="btn btn-sm btn-outline-primary"
+                  disabled
+                >
+                  Suivant <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Détails de la recherche -->
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header bg-success text-white">
+              <h5 class="card-title mb-0">Détails de la recherche</h5>
+            </div>
+            <div class="card-body">
+              <div id="result-loading" class="loading" style="display: none">
+                <div class="spinner-border text-success" role="status">
+                  <span class="visually-hidden">Chargement des détails...</span>
+                </div>
+              </div>
+              <div id="details-placeholder" class="text-center p-5 text-muted">
+                <i class="fas fa-info-circle fa-3x mb-3"></i>
+                <h4>Sélectionnez une recherche</h4>
+                <p>
+                  Cliquez sur une recherche dans la liste de gauche pour
+                  afficher ses détails.
+                </p>
+              </div>
+              <div id="search-details" style="display: none">
+                <div class="mb-4">
+                  <h4><i class="fas fa-route me-2 text-primary"></i>Trajet</h4>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3 card p-3">
+                        <label class="fw-bold"
+                          ><i class="fas fa-map-marker-alt text-danger me-2"></i
+                          >Départ:</label
+                        >
+                        <p id="detail-origin" class="mb-1"></p>
+                        <small
+                          id="detail-origin-address"
+                          class="text-muted"
+                        ></small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3 card p-3">
+                        <label class="fw-bold"
+                          ><i
+                            class="fas fa-flag-checkered text-success me-2"
+                          ></i
+                          >Arrivée:</label
+                        >
+                        <p id="detail-destination" class="mb-1"></p>
+                        <small
+                          id="detail-destination-address"
+                          class="text-muted"
+                        ></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h4>Émissions CO2 par mode de transport</h4>
+                  <div id="transport-modes-list">
+                    <!-- Les modes de transport seront ajoutés ici -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toast pour les messages -->
+      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+        <div
+          id="toast"
+          class="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="toast-header">
+            <strong class="me-auto" id="toast-title">Message</strong>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="toast-body" id="toast-body"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Système de notification
+      const notifications = {
+        container: document.getElementById("notification-container"),
+        show(options) {
+          const notification = document.createElement("div");
+          notification.className = `notification notification-${
+            options.type || "info"
+          }`;
+
+          let iconClass = "fa-info-circle";
+          let title = "Information";
+          switch (options.type) {
+            case "success":
+              iconClass = "fa-check-circle";
+              title = "Succès";
+              break;
+            case "error":
+              iconClass = "fa-exclamation-circle";
+              title = "Erreur";
+              break;
+            case "warning":
+              iconClass = "fa-exclamation-triangle";
+              title = "Attention";
+              break;
+          }
+
+          notification.innerHTML = `
+            <div class="notification-icon"><i class="fas ${iconClass}"></i></div>
+            <div class="notification-content">
+              <div class="notification-title">${options.title || title}</div>
+              <div class="notification-message">${options.message}</div>
+            </div>
+            <button class="notification-close">×</button>
+          `;
+
+          this.container.appendChild(notification);
+          const closeBtn = notification.querySelector(".notification-close");
+          closeBtn.addEventListener("click", () => this.close(notification));
+
+          if (options.duration !== Infinity) {
+            setTimeout(() => {
+              if (notification.parentNode) this.close(notification);
+            }, options.duration || 5000);
+          }
+
+          return notification;
+        },
+        close(notification) {
+          notification.classList.add("closing");
+          setTimeout(() => {
+            if (notification.parentNode)
+              notification.parentNode.removeChild(notification);
+          }, 300);
+        },
+        success(message, options = {}) {
+          return this.show({ type: "success", message, ...options });
+        },
+        error(message, options = {}) {
+          return this.show({ type: "error", message, ...options });
+        },
+        info(message, options = {}) {
+          return this.show({ type: "info", message, ...options });
+        },
+        warning(message, options = {}) {
+          return this.show({ type: "warning", message, ...options });
+        },
+      };
+
+      window.notifications = notifications;
+
+      // Configuration d'Axios avec les paramètres communs
+      const apiClient = axios.create({
+        baseURL: "http://192.168.75.65:3376",
+        timeout: 10000,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // Intercepteur pour ajouter le token d'authentification
+      apiClient.interceptors.request.use((config) => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      });
+
+      // Gérer l'authentification
+      document.addEventListener("DOMContentLoaded", function () {
+        const token = localStorage.getItem("token");
+        const userData = localStorage.getItem("user")
+          ? JSON.parse(localStorage.getItem("user"))
+          : null;
+
+        // Éléments DOM
+        const loginBtn = document.getElementById("login-btn");
+        const logoutBtn = document.getElementById("logout-btn");
+        const refreshBtn = document.getElementById("refresh-btn");
+        const prevPageBtn = document.getElementById("prev-page");
+        const nextPageBtn = document.getElementById("next-page");
+        const pageInfo = document.getElementById("page-info");
+
+        const historyLoading = document.getElementById("history-loading");
+        const historyList = document.getElementById("history-list");
+        const resultLoading = document.getElementById("result-loading");
+        const detailsPlaceholder = document.getElementById(
+          "details-placeholder"
+        );
+        const searchDetails = document.getElementById("search-details");
+
+        // Variables pagination
+        let currentPage = 1;
+        let totalPages = 1;
+        const limit = 10;
+
+        // Vérifier si l'utilisateur est connecté
+        function checkAuth() {
+          if (token && userData) {
+            // Utilisateur connecté
+            loginBtn.style.display = "none";
+            logoutBtn.style.display = "block";
+            // Charger l'historique
+            loadSearchHistory(currentPage);
+          } else {
+            // Utilisateur non connecté - rediriger vers la page d'accueil
+            window.notifications.warning("Authentification requise", {
+              title: "Accès restreint",
+              message:
+                "Veuillez vous connecter pour accéder à votre historique",
+              duration: 5000,
+            });
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 2000);
+          }
+        }
+
+        // Gérer la déconnexion
+        logoutBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          window.notifications.success("Vous avez été déconnecté avec succès", {
+            title: "Déconnexion réussie",
+          });
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 1500);
+        });
+
+        // Charger l'historique des recherches
+        async function loadSearchHistory(page) {
+          historyLoading.style.display = "flex";
+          historyList.innerHTML = ""; 
+
+          try {
+            const response = await apiClient.get(`/api/users/search-history`, {
+              params: {
+                page: page,
+                limit: limit,
+              },
+              proxy: {
+                host: "proxy.univ-lyon1.fr",
+                port: 3128,
+                protocol: "https",
+              },
+            });
+
+            const data = response.data;
+
+            // Mettre à jour les informations de pagination
+            currentPage = data.pagination.page;
+            totalPages = data.pagination.pages;
+            pageInfo.textContent = `Page ${currentPage} sur ${totalPages}`;
+            prevPageBtn.disabled = currentPage <= 1;
+            nextPageBtn.disabled = currentPage >= totalPages;
+
+            // Afficher l'historique
+            if (data.history.length === 0) {
+              historyList.innerHTML = `
+                <li class="list-group-item text-center py-5">
+                  <i class="far fa-folder-open fa-2x mb-3 text-muted"></i>
+                  <p class="mb-0">Aucun historique disponible</p>
+                  <small class="text-muted">Vos recherches sauvegardées apparaîtront ici</small>
+                </li>
+              `;
+            } else {
+              data.history.forEach((entry) => {
+                const date = new Date(entry.date);
+                const formattedDate = `${date.toLocaleDateString()} à ${date.toLocaleTimeString(
+                  [],
+                  { hour: "2-digit", minute: "2-digit" }
+                )}`;
+
+                const originAddress =
+                  entry.result?.origin_address ||
+                  entry.result?.origin ||
+                  "Adresse inconnue";
+                const destAddress =
+                  entry.result?.destination_address ||
+                  entry.result?.destination ||
+                  "Adresse inconnue";
+
+                // Calculer le nombre de modes de transport disponibles
+                const availableModes =
+                  entry.result?.transport_modes?.filter(
+                    (mode) => mode.available
+                  )?.length || 0;
+
+                const listItem = document.createElement("li");
+                listItem.className = "list-group-item history-item";
+                listItem.innerHTML = `
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <h6 class="mb-1"><i class="fas fa-route me-1 text-primary"></i> De ${
+                        originAddress.split(",")[0]
+                      } à ${destAddress.split(",")[0]}</h6>
+                      <small class="text-muted d-block"><i class="far fa-clock me-1"></i> ${formattedDate}</small>
+                      <small class="d-block text-info"><i class="fas fa-exchange-alt me-1"></i> ${availableModes} mode(s) de transport</small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-primary view-details-btn">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                `;
+
+                // Ajouter un écouteur d'événement pour voir les détails
+                listItem.addEventListener("click", function () {
+                  // Supprimer la classe active de tous les éléments
+                  document.querySelectorAll(".history-item").forEach((item) => {
+                    item.classList.remove("active-item");
+                  });
+
+                  // Ajouter la classe active à l'élément cliqué
+                  this.classList.add("active-item");
+
+                  // Charger les détails
+                  loadSearchDetails(entry._id);
+                });
+
+                historyList.appendChild(listItem);
+              });
+            }
+          } catch (error) {
+            // Gestion des erreurs avec axios
+            if (error.response && error.response.status === 401) {
+              // Token expiré ou invalide
+              localStorage.removeItem("token");
+              window.notifications.error("Session expirée", {
+                title: "Erreur d'authentification",
+                message: "Votre session a expiré, veuillez vous reconnecter",
+                duration: 5000,
+              });
+              setTimeout(() => {
+                window.location.href = "login.html";
+              }, 2000);
+            } else {
+              notifications.error(
+                `Erreur: ${
+                  error.response?.data?.message ||
+                  error.message ||
+                  "Problème lors du chargement de l'historique"
+                }`
+              );
+            }
+          } finally {
+            historyLoading.style.display = "none";
+          }
+        }
+        // Charger les détails d'une recherche
+        async function loadSearchDetails(searchId) {
+          detailsPlaceholder.style.display = "none";
+          searchDetails.style.display = "none";
+          resultLoading.style.display = "flex";
+
+          try {
+            const response = await apiClient.get(`/api/users/search-results`, {
+              params: { id: searchId },
+            });
+
+            const data = response.data;
+
+            // Afficher les détails
+            displaySearchDetails(data.searchEntry);
+          } catch (error) {
+            if (error.response && error.response.status === 401) {
+              // Token expiré ou invalide
+              localStorage.removeItem("token");
+              window.notifications.error("Session expirée", {
+                title: "Erreur d'authentification",
+                message: "Votre session a expiré, veuillez vous reconnecter",
+                duration: 5000,
+              });
+              setTimeout(() => {
+                window.location.href = "login.html";
+              }, 2000);
+            } else {
+              notifications.error(
+                `Erreur: ${
+                  error.response?.data?.message ||
+                  error.message ||
+                  "Problème lors du chargement des détails"
+                }`
+              );
+            }
+          } finally {
+            resultLoading.style.display = "none";
+          }
+        }
+
+        // Afficher les détails d'une recherche
+        function displaySearchDetails(search) {
+          document.getElementById("detail-origin").textContent =
+            search.result.origin;
+          document.getElementById("detail-origin-address").textContent =
+            search.result.origin_address;
+          document.getElementById("detail-destination").textContent =
+            search.result.destination;
+          document.getElementById("detail-destination-address").textContent =
+            search.result.destination_address;
+
+          // Afficher les modes de transport
+          const modesList = document.getElementById("transport-modes-list");
+          modesList.innerHTML = "";
+
+          const transportModes = search.result.transport_modes.filter(
+            (mode) => mode.available
+          );
+
+          if (transportModes.length === 0) {
+            modesList.innerHTML = `<p class="text-muted">Aucun mode de transport disponible pour ce trajet</p>`;
+          } else {
+            // Trier par émissions (du plus faible au plus élevé)
+            transportModes.sort((a, b) => {
+              // Trier par émissions (si disponibles)
+              const aValue = a.emissions?.value || 999;
+              const bValue = b.emissions?.value || 999;
+              return aValue - bValue;
+            });
+
+            transportModes.forEach((mode) => {
+              const modeItem = document.createElement("div");
+              modeItem.className = "transport-mode";
+
+              // Déterminer la couleur en fonction de l'empreinte carbone
+              let colorClass = "text-success"; // Vert pour faible émission
+              let emissionsValue = mode.emissions?.value || 0;
+              let icon = "fa-question-circle";
+
+              // Sélectionner l'icône en fonction du mode
+              switch (mode.mode) {
+                case "driving":
+                  icon = "fa-car";
+                  break;
+                case "electric_car":
+                  icon = "fa-charging-station";
+                  break;
+                case "walking":
+                  icon = "fa-walking";
+                  break;
+                case "bicycling":
+                  icon = "fa-bicycle";
+                  break;
+                case "electric_bike":
+                  icon = "fa-bicycle";
+                  break;
+                case "transit_train":
+                  icon = "fa-train";
+                  break;
+                case "transit_bus":
+                  icon = "fa-bus";
+                  break;
+                case "electric_bus":
+                  icon = "fa-bus";
+                  break;
+                case "transit_metro":
+                  icon = "fa-subway";
+                  break;
+                case "airplane":
+                  icon = "fa-plane";
+                  break;
+                case "motorcycle":
+                  icon = "fa-motorcycle";
+                  break;
+                case "electric_scooter":
+                  icon = "fa-bolt";
+                  break;
+              }
+
+              if (emissionsValue > 10) {
+                colorClass = "text-danger";
+              } else if (emissionsValue > 1) {
+                colorClass = "text-warning";
+              }
+
+              modeItem.innerHTML = `
+                <div class="d-flex justify-content-between">
+                  <h5><i class="fas ${icon} me-2 ${colorClass}"></i> ${
+                mode.name
+              }</h5>
+                  <span class="fw-bold ${colorClass}">${emissionsValue.toFixed(
+                2
+              )} kg CO₂</span>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-6">
+                    <small class="text-muted"><i class="fas fa-road me-1"></i> Distance: ${
+                      mode.distance?.text || "N/A"
+                    }</small>
+                  </div>
+                  <div class="col-6">
+                    <small class="text-muted"><i class="fas fa-clock me-1"></i> Durée: ${
+                      mode.duration?.text || "N/A"
+                    }</small>
+                  </div>
+                </div>
+              `;
+
+              modesList.appendChild(modeItem);
+            });
+          }
+
+          // Afficher la section de détails
+          searchDetails.style.display = "block";
+        }
+
+        // Gérer la pagination
+        prevPageBtn.addEventListener("click", () => {
+          if (currentPage > 1) {
+            loadSearchHistory(currentPage - 1);
+          }
+        });
+
+        nextPageBtn.addEventListener("click", () => {
+          if (currentPage < totalPages) {
+            loadSearchHistory(currentPage + 1);
+          }
+        });
+
+        // Rafraîchir l'historique
+        refreshBtn.addEventListener("click", () => {
+          notifications.info("Actualisation en cours...", {
+            duration: 1500,
+          });
+          loadSearchHistory(currentPage);
+        });
+
+        // Vérifier l'authentification au chargement
+        checkAuth();
+      });
+    </script>
+  </body>
+</html>

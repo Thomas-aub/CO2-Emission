@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/emissionController.test.js">
+    <testCase name="emissionController.calculateEmissions retourne les émissions pour une distance valide" duration="715"/>
+    <testCase name="emissionController.calculateEmissions retourne une erreur 400 si la distance est manquante" duration="12"/>
+    <testCase name="emissionController.calculateEmissions passe une erreur au middleware d&apos;erreur en cas de problème" duration="7"/>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/impactCo2Service.test.js">
+    <testCase name="impactCo2Service.getEmissions retourne les données d&apos;émissions pour une distance valide" duration="696">
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;get&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'get')
+    at Object.get [as getEmissions] (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/services/impactCo2Service.js:25:51)
+    at Object.getEmissions (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/impactCo2Service.test.js:22:43)
+    at Promise.then.completed (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at _runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at run (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="impactCo2Service.getEmissions retourne une liste vide si l&apos;API ne renvoie aucune donnée" duration="2">
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;get&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'get')
+    at Object.get [as getEmissions] (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/services/impactCo2Service.js:25:51)
+    at Object.getEmissions (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/impactCo2Service.test.js:56:43)
+    at Promise.then.completed (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at _runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at run (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="impactCo2Service.getEmissions lève une erreur si l&apos;API retourne une erreur" duration="141">
+      <failure message="Error: expect(received).rejects.toThrow(expected)"><![CDATA[Error: expect(received).rejects.toThrow(expected)
+
+Expected substring: "Erreur réseau"
+Received message:   "Cannot read properties of undefined (reading 'get')"
+
+      23 |
+      24 |     // Appel à l'API Impact CO2 avec Bearer Token
+    > 25 |     const impactCo2Response = await axiosInstance.get('https://impactco2.fr/api/v1/transport', {
+         |                                                   ^
+      26 |       params: impactCo2Params,
+      27 |       headers: {
+      28 |         'Authorization': `Bearer ${API_TOKEN}`,
+
+      at Object.get [as getEmissions] (services/impactCo2Service.js:25:51)
+      at Object.getEmissions (__tests__/impactCo2Service.test.js:66:35)
+    at Object.toThrow (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/expect/build/index.js:218:22)
+    at Object.toThrow (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/impactCo2Service.test.js:66:62)
+    at Promise.then.completed (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at _runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at run (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/distanceMatrixService.test.js">
+    <testCase name="distanceMatrixService getDistanceMatrix retourne une erreur si l&apos;API retourne un statut non OK" duration="1726">
+      <failure message="Error: expect(received).rejects.toThrow(expected)"><![CDATA[Error: expect(received).rejects.toThrow(expected)
+
+Expected substring: "API Distance Matrix error: REQUEST_DENIED"
+Received message:   "Cannot read properties of undefined (reading 'get')"
+
+      45 |     params.timestamp = new Date().getTime(); // Éviter la mise en cache
+      46 |
+    > 47 |     const response = await axios.get(
+         |                                  ^
+      48 |       "https://api.distancematrix.ai/maps/api/distancematrix/json",
+      49 |       {
+      50 |         params,
+
+      at Object.get [as getDistanceMatrix] (services/distanceMatrixService.js:47:34)
+      at Object.getDistanceMatrix (__tests__/distanceMatrixService.test.js:20:31)
+    at Object.toThrow (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/expect/build/index.js:218:22)
+    at Object.toThrow (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/distanceMatrixService.test.js:21:17)
+    at Promise.then.completed (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at _runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at run (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="distanceMatrixService getDistanceMatrix retourne une erreur si Axios lève une exception" duration="61">
+      <failure message="Error: expect(received).rejects.toThrow(expected)"><![CDATA[Error: expect(received).rejects.toThrow(expected)
+
+Expected substring: "Erreur réseau"
+Received message:   "Cannot read properties of undefined (reading 'get')"
+
+      45 |     params.timestamp = new Date().getTime(); // Éviter la mise en cache
+      46 |
+    > 47 |     const response = await axios.get(
+         |                                  ^
+      48 |       "https://api.distancematrix.ai/maps/api/distancematrix/json",
+      49 |       {
+      50 |         params,
+
+      at Object.get [as getDistanceMatrix] (services/distanceMatrixService.js:47:34)
+      at Object.getDistanceMatrix (__tests__/distanceMatrixService.test.js:30:31)
+    at Object.toThrow (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/expect/build/index.js:218:22)
+    at Object.toThrow (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/distanceMatrixService.test.js:31:17)
+    at Promise.then.completed (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at _runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at run (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="distanceMatrixService getDistanceMatrix gère correctement le mode transit avec transitMode" duration="3">
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;get&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'get')
+    at Object.get [as getDistanceMatrix] (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/services/distanceMatrixService.js:47:34)
+    at Object.getDistanceMatrix (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/distanceMatrixService.test.js:49:50)
+    at Promise.then.completed (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at _runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at run (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="distanceMatrixService getDistanceMatrix définit error.statusCode à partir de error.response.status" duration="56">
+      <failure message="Error: expect(received).rejects.toMatchObject(expected)"><![CDATA[Error: expect(received).rejects.toMatchObject(expected)
+
+- Expected  - 1
++ Received  + 1
+
+  Object {
+-   "statusCode": 404,
++   "statusCode": 500,
+  }
+    at Object.toMatchObject (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/expect/build/index.js:218:22)
+    at Object.toMatchObject (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/distanceMatrixService.test.js:68:17)
+    at Promise.then.completed (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at _runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at run (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="distanceMatrixService getDistanceMatrix définit error.statusCode à 500 si error.response.status est absent" duration="12"/>
+    <testCase name="distanceMatrixService getAllTransportModes retourne une erreur si la réponse API est invalide" duration="12"/>
+    <testCase name="distanceMatrixService getAllTransportModes gère correctement les cas où tous les modes de transport échouent" duration="160">
+      <failure message="Error: expect(received).toContain(expected) // indexOf"><![CDATA[Error: expect(received).toContain(expected) // indexOf
+
+Expected substring: "Erreur API externe"
+Received string:    "Cannot read properties of undefined (reading 'get')"
+    at Object.toContain (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/distanceMatrixService.test.js:115:47)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)]]></failure>
+    </testCase>
+    <testCase name="distanceMatrixService getAllTransportModes gère correctement les cas où certains modes de transport réussissent" duration="15">
+      <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 13
+Received: 7
+    at Object.toBe (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/distanceMatrixService.test.js:144:45)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)]]></failure>
+    </testCase>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/geocodeService.test.js">
+    <testCase name="geocodeService.getCoordinates retourne les coordonnées pour une adresse valide" duration="11">
+      <failure message="Error: Géocodage impossible pour l&apos;adresse &quot;Paris&quot;: Cannot read properties of undefined (reading &apos;get&apos;)"><![CDATA[Error: Géocodage impossible pour l'adresse "Paris": Cannot read properties of undefined (reading 'get')
+    at Object.<anonymous>.exports.getCoordinates (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/services/geocodeService.js:50:11)
+    at Object.getCoordinates (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/geocodeService.test.js:25:41)
+    at Promise.then.completed (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at _runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at run (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="geocodeService.getCoordinates lève une erreur si aucun résultat n&apos;est trouvé" duration="18">
+      <failure message="Error: expect(jest.fn()).toHaveBeenCalled()"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalled()
+
+Expected number of calls: >= 1
+Received number of calls:    0
+    at Object.toHaveBeenCalled (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/geocodeService.test.js:48:23)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)]]></failure>
+    </testCase>
+    <testCase name="geocodeService.getCoordinates lève une erreur en cas de problème avec la requête" duration="7">
+      <failure message="Error: expect(jest.fn()).toHaveBeenCalled()"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalled()
+
+Expected number of calls: >= 1
+Received number of calls:    0
+    at Object.toHaveBeenCalled (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/geocodeService.test.js:60:23)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)]]></failure>
+    </testCase>
+    <testCase name="geocodeService.getCoordinates définit error.statusCode à partir de error.response.status" duration="8"/>
+    <testCase name="geocodeService.getCoordinates définit error.statusCode à 500 si error.response.status est absent" duration="4"/>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/distanceMatrixController.test.js">
+    <testCase name="distanceMatrixController getDistance retourne la distance pour des paramètres valides" duration="30"/>
+    <testCase name="distanceMatrixController getDistance retourne une erreur 400 si les paramètres sont manquants" duration="3"/>
+    <testCase name="distanceMatrixController getDistance retourne une erreur 400 si les paramètres sont invalides" duration="12"/>
+    <testCase name="distanceMatrixController getDistance retourne une erreur 500 si le service retourne des données invalides" duration="4"/>
+    <testCase name="distanceMatrixController getDistance retourne un message si le mode de transport est indisponible" duration="4"/>
+    <testCase name="distanceMatrixController getDistance retourne une erreur 500 si les éléments de la réponse sont manquants" duration="12"/>
+    <testCase name="distanceMatrixController getDistance retourne une erreur 500 si une exception est levée dans le service" duration="4"/>
+    <testCase name="distanceMatrixController getAllModes retourne les modes de transport disponibles" duration="10"/>
+    <testCase name="distanceMatrixController getAllModes retourne une erreur 400 si les paramètres sont manquants" duration="5"/>
+    <testCase name="distanceMatrixController getAllModes retourne une erreur 400 si les paramètres sont invalides" duration="3"/>
+    <testCase name="distanceMatrixController getAllModes retourne une erreur 500 si le service retourne des données invalides" duration="10"/>
+    <testCase name="distanceMatrixController getAllModes retourne un message si aucun mode de transport n&apos;est disponible" duration="6"/>
+    <testCase name="distanceMatrixController getAllModes retourne une erreur 500 si les modes de transport sont manquants" duration="3"/>
+    <testCase name="distanceMatrixController getAllModes retourne une erreur 500 si une exception est levée dans le service" duration="3"/>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/geocodeController.test.js">
+    <testCase name="geocodeController.getCoordinates retourne les coordonnées pour une adresse valide" duration="13"/>
+    <testCase name="geocodeController.getCoordinates retourne une erreur 400 si l&apos;adresse est manquante" duration="2"/>
+    <testCase name="geocodeController.getCoordinates gère une erreur levée par geocodeService" duration="2"/>
+    <testCase name="geocodeController.getCoordinates passe une erreur non gérée au middleware d&apos;erreur" duration="2"/>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/errorHandler.test.js">
+    <testCase name="errorHandler middleware gère une erreur avec un code de statut spécifique" duration="151"/>
+    <testCase name="errorHandler middleware gère une erreur sans code de statut (erreur 500)" duration="4"/>
+    <testCase name="errorHandler middleware inclut la pile d&apos;erreurs en mode non production" duration="4"/>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/auth.test.js">
+    <testCase name="Middleware d&apos;authentification devrait appeler next() si le token est valide" duration="12"/>
+    <testCase name="Middleware d&apos;authentification devrait retourner 401 si le header Authorization est manquant" duration="5"/>
+    <testCase name="Middleware d&apos;authentification devrait retourner 401 si le format du token est incorrect" duration="3"/>
+    <testCase name="Middleware d&apos;authentification devrait retourner 401 avec un message spécifique si le token est expiré" duration="6"/>
+    <testCase name="Middleware d&apos;authentification devrait retourner 401 si le token est invalide" duration="8"/>
+    <testCase name="Middleware de restriction par rôle devrait appeler next() si l&apos;utilisateur a le rôle requis" duration="6"/>
+    <testCase name="Middleware de restriction par rôle devrait retourner 403 si l&apos;utilisateur n&apos;a pas le rôle requis" duration="5"/>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/proxyAxios.test.js">
+    <testCase name="createProxyAxios devrait configurer Axios avec le proxy et les en-têtes appropriés" duration="542"/>
+    <testCase name="createProxyAxios devrait utiliser le proxy par défaut si HTTPS_PROXY n&apos;est pas défini" duration="18">
+      <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: "http://proxy.univ-lyon1.fr:3128"
+Received: "https://proxy.univ-lyon1.fr:3128/"
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/proxyAxios.test.js:48:29)
+    at Promise.then.completed (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at _runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:121:9)
+    at run (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/distanceGps.test.js">
+    <testCase name="calculateHaversineDistance calcule correctement la distance entre deux points GPS" duration="8"/>
+    <testCase name="calculateHaversineDistance retourne 0 pour deux points identiques" duration="1"/>
+    <testCase name="calculateHaversineDistance retourne null si les coordonnées sont invalides" duration="111"/>
+    <testCase name="formatDistance formate correctement une distance en kilomètres" duration="1"/>
+    <testCase name="formatDistance retourne &quot;0 km&quot; pour une distance nulle" duration="1"/>
+    <testCase name="formatDistance retourne &quot;Distance inconnue&quot; pour une distance invalide" duration="1"/>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/server.test.js">
+    <testCase name="server devrait démarrer le serveur sur le port par défaut (3000)" duration="11"/>
+    <testCase name="server devrait utiliser le port spécifié en argument" duration="3"/>
+    <testCase name="server devrait utiliser le port défini dans les variables d&apos;environnement" duration="3"/>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/logger.test.js">
+    <testCase name="logger appelle console.warn avec le message d&apos;avertissement et le bon formatage" duration="5"/>
+    <testCase name="logger appelle console.error avec le message d&apos;erreur et le bon formatage" duration="5"/>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/userController.test.js">
+    <testCase name="userController register devrait créer un nouvel utilisateur et retourner un token" duration="344"/>
+    <testCase name="userController register devrait retourner une erreur 400 si l&apos;email est déjà utilisé" duration="4"/>
+    <testCase name="userController register devrait passer l&apos;erreur au middleware suivant en cas d&apos;exception" duration="5"/>
+    <testCase name="userController login devrait authentifier l&apos;utilisateur et retourner un token" duration="7"/>
+    <testCase name="userController login devrait retourner une erreur 401 si l&apos;email est incorrect" duration="6"/>
+    <testCase name="userController login devrait retourner une erreur 401 si le mot de passe est incorrect" duration="5"/>
+    <testCase name="userController login devrait passer l&apos;erreur au middleware suivant en cas d&apos;exception" duration="8"/>
+    <testCase name="userController getSearchResults devrait retourner les résultats de recherche pour un ID valide" duration="3"/>
+    <testCase name="userController getSearchResults devrait retourner une erreur 400 si l&apos;ID est manquant" duration="7"/>
+    <testCase name="userController getSearchResults devrait retourner une erreur 404 si l&apos;utilisateur n&apos;est pas trouvé" duration="4"/>
+    <testCase name="userController getSearchResults devrait retourner une erreur 404 si l&apos;historique est vide" duration="4"/>
+    <testCase name="userController getSearchResults devrait retourner une erreur 404 si la recherche n&apos;est pas trouvée" duration="6"/>
+    <testCase name="userController getSearchResults devrait retourner une erreur 404 si l&apos;historique est null" duration="4"/>
+    <testCase name="userController saveSearchResults devrait sauvegarder les résultats de recherche" duration="2"/>
+    <testCase name="userController saveSearchResults devrait retourner une erreur 400 si les données sont incomplètes" duration="3"/>
+    <testCase name="userController saveSearchResults devrait retourner une erreur 404 si l&apos;utilisateur n&apos;est pas trouvé" duration="3"/>
+    <testCase name="userController saveSearchResults devrait initialiser un tableau searchHistory s&apos;il n&apos;existe pas" duration="11"/>
+    <testCase name="userController getSearchHistory devrait retourner l&apos;historique des recherches avec pagination" duration="6"/>
+    <testCase name="userController getSearchHistory devrait retourner une erreur 404 si l&apos;utilisateur n&apos;est pas trouvé" duration="4"/>
+    <testCase name="userController getSearchHistory devrait retourner une erreur 400 si la pagination est invalide" duration="11"/>
+    <testCase name="userController getSearchHistory devrait retourner une erreur 404 si l&apos;historique est null" duration="20"/>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/distanceGpsController.test.js">
+    <testCase name="distanceGpsController should return 400 if parameters are missing" duration="1496"/>
+    <testCase name="distanceGpsController should return 400 if parameters are invalid" duration="31"/>
+    <testCase name="distanceGpsController should return 200 with valid parameters" duration="23"/>
+    <testCase name="distanceGpsController should handle edge cases for valid parameters" duration="80"/>
+    <testCase name="distanceGpsController should return 404 for an unknown route" duration="30"/>
+    <testCase name="distanceGpsController should return 500 if the service throws an error" duration="70"/>
+  </file>
+  <file path="/mnt/e/Univ/M1/S2/mif10-projet-master/co2_emission/__tests__/travelImpactController.test.js">
+    <testCase name="travelImpactController calculateTravelImpact should return 400 if origins or destinations are missing" duration="798"/>
+    <testCase name="travelImpactController calculateTravelImpact should return 200 with valid parameters and transport modes" duration="160"/>
+    <testCase name="travelImpactController calculateTravelImpact should handle errors from distanceMatrixService gracefully" duration="32"/>
+    <testCase name="travelImpactController calculateTravelImpact should return 500 if distance data is invalid" duration="73"/>
+    <testCase name="travelImpactController calculateTravelImpact should return 500 if no transport modes with emissions are available" duration="51"/>
+    <testCase name="travelImpactController calculateTravelImpact should handle errors during air distance calculation gracefully" duration="115"/>
+    <testCase name="travelImpactController calculateAirTravelImpact should return 400 if origins or destinations are missing" duration="26"/>
+    <testCase name="travelImpactController calculateAirTravelImpact should return 200 with valid parameters and air travel emissions" duration="24"/>
+    <testCase name="travelImpactController calculateAirTravelImpact should return 200 for very short air travel distances" duration="29"/>
+    <testCase name="travelImpactController calculateAirTravelImpact should handle geocoding errors gracefully" duration="22"/>
+    <testCase name="travelImpactController calculateAirTravelImpact should handle distance calculation errors gracefully" duration="29"/>
+    <testCase name="travelImpactController calculateAirTravelImpact should handle emission calculation errors gracefully" duration="36"/>
+    <testCase name="travelImpactController calculateAirTravelImpact should return 500 if emission data format is invalid" duration="40"/>
+    <testCase name="travelImpactController calculateAirTravelImpact should handle missing emission match gracefully" duration="25"/>
+    <testCase name="travelImpactController calculateAirTravelImpact should calculate flight duration and emissions for valid air travel" duration="21"/>
+  </file>
+</testExecutions>

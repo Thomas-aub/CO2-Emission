@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CO2 Émissions - Connexion</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f7f9fc;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        padding: 30px;
+      }
+      h1 {
+        color: #2e7d32;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #455a64;
+        font-weight: 500;
+      }
+      input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: #2e7d32;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 12px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #1b5e20;
+      }
+      .message {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 4px;
+        text-align: center;
+      }
+      .error {
+        background-color: #ffebee;
+        color: #c62828;
+      }
+      .success {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+      }
+      .links {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .links a {
+        color: #2e7d32;
+        text-decoration: none;
+      }
+      .links a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Calculateur CO2 - Connexion</h1>
+      <div id="message" class="message" style="display: none"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="Votre adresse email"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            placeholder="Votre mot de passe"
+          />
+        </div>
+
+        <button type="submit">Se connecter</button>
+      </form>
+
+      <div class="links">
+        <p>Pas encore de compte ? <a href="register.html">S'inscrire</a></p>
+      </div>
+    </div>
+    <!-- Ajouter juste avant la fermeture du head -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          try {
+            // Obtenir l'URL du serveur backend en fonction de l'environnement
+            const serverUrl = window.location.origin;
+            console.log("URL du serveur:", serverUrl);
+
+            // Utilisation d'axios avec l'URL du serveur actuel au lieu de localhost
+            const response = await axios.post(
+              `${serverUrl}:3376/api/users/login`,
+              { email, password },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                // Configuration du proxy pour contourner les restrictions réseau
+                proxy: {
+                  host: "proxy.univ-lyon1.fr",
+                  port: 3128,
+                  protocol: "https",
+                },
+              }
+            );
+
+            // Axios place la réponse dans response.data directement
+            const data = response.data;
+
+            showMessage(
+              `Connexion réussie ! Bienvenue, ${data.user.name}`,
+              "success"
+            );
+
+            // Stocker le token dans localStorage
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            setTimeout(() => {
+              // Vérifier s'il y a une URL de redirection sauvegardée
+              const redirectUrl = sessionStorage.getItem("redirectAfterLogin");
+              if (redirectUrl) {
+                // Supprimer l'URL de redirection du sessionStorage
+                sessionStorage.removeItem("redirectAfterLogin");
+                window.location.href = redirectUrl;
+              } else {
+                // Redirection par défaut
+                window.location.href = "index.html";
+              }
+            }, 1000);
+          } catch (error) {
+            console.error("Erreur:", error);
+
+            let errorMsg = "Erreur de connexion au serveur";
+
+            if (error.response) {
+              // Le serveur a répondu avec un code d'erreur
+              errorMsg =
+                error.response.data?.message ||
+                `Erreur ${error.response.status}: ${error.response.statusText}`;
+            }
+
+            showMessage(errorMsg, "error");
+          }
+        });
+
+      function showMessage(text, type) {
+        const messageElement = document.getElementById("message");
+        messageElement.textContent = text;
+        messageElement.className = `message ${type}`;
+        messageElement.style.display = "block";
+      }
+    </script>
+  </body>
+</html>

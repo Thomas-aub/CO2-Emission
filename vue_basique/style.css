@@ -1,0 +1,68 @@
+/* Dégradé de fond */
+body {
+    background: linear-gradient(to right, #e3f2fd, #bbdefb);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Style des cartes */
+.card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Bouton stylé */
+.btn-primary {
+    background-color: #1976D2;
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0D47A1;
+}
+
+/* Conteneur des résultats sous forme de grille */
+#results-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes sur toutes les tailles d'écran */
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 0 15px; /* Assurer que le conteneur ait un petit padding sur les côtés */
+}
+
+/* Cartes des résultats */
+.result-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    text-align: center;
+    min-width: 200px;
+    height: 100%; /* Pour s'assurer que toutes les cartes ont la même taille */
+}
+
+/* Icônes de transport */
+.result-icon {
+    font-size: 2rem;
+    color: #1976D2;
+    margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    #results-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes pour les écrans moyens */
+    }
+}
+
+@media (max-width: 600px) {
+    #results-container {
+        grid-template-columns: 1fr; /* 1 colonne pour les écrans petits */
+    }
+}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CO2 Émissions - Inscription</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f7f9fc;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        padding: 30px;
+      }
+      h1 {
+        color: #2e7d32;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #455a64;
+        font-weight: 500;
+      }
+      input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: #2e7d32;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 12px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #1b5e20;
+      }
+      .message {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 4px;
+        text-align: center;
+      }
+      .error {
+        background-color: #ffebee;
+        color: #c62828;
+      }
+      .success {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+      }
+      .links {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .links a {
+        color: #2e7d32;
+        text-decoration: none;
+      }
+      .links a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Calculateur CO2 - Inscription</h1>
+      <div id="message" class="message" style="display: none"></div>
+
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="name">Nom complet</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="Votre nom"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="Votre adresse email"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            placeholder="Choisissez un mot de passe"
+          />
+          <small style="color: #607d8b">Au moins 6 caractères</small>
+        </div>
+
+        <button type="submit">S'inscrire</button>
+      </form>
+
+      <div class="links">
+        <p>Déjà un compte ? <a href="login.html">Se connecter</a></p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          if (password.length < 6) {
+            showMessage(
+              "Le mot de passe doit contenir au moins 6 caractères",
+              "error"
+            );
+            return;
+          }
+
+          try {
+            const serverUrl = window.location.origin;
+            const response = await axios.post(
+              "http://192.168.75.65:3376/api/users/register",
+              { name, email, password },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                proxy: {
+                  host: "proxy.univ-lyon1.fr",
+                  port: 3128,
+                  protocol: "https",
+                },
+              }
+            );
+
+            const data = response.data;
+
+            if (response.status === 200 && response.status < 300) {
+              // Afficher le message de succès
+              showMessage("Inscription réussie ! Redirection...", "success");
+
+              // Stocker le token dans localStorage
+              localStorage.setItem("token", data.token);
+              localStorage.setItem("user", JSON.stringify(data.user));
+
+              // Rediriger vers le dashboard après 1 seconde
+              setTimeout(() => {
+                window.location.href = "login.html";
+              }, 1000);
+            } else {
+              showMessage(
+                data.message || "Erreur lors de l'inscription",
+                "error"
+              );
+            }
+          } catch (error) {
+            console.error("Erreur:", error);
+            showMessage("Erreur de connexion au serveur", "error");
+          }
+        });
+
+      function showMessage(text, type) {
+        const messageElement = document.getElementById("message");
+        messageElement.textContent = text;
+        messageElement.className = `message ${type}`;
+        messageElement.style.display = "block";
+      }
+    </script>
+  </body>
+</html>

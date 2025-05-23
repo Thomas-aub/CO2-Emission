@@ -1,0 +1,88 @@
+image: node:latest
+
+stages:
+  - test
+  - build
+  - sonar
+  - deploy
+
+variables:
+  APP_NAME: co2_emission
+  SONAR_HOST_URL: "https://sonar.info.univ-lyon1.fr/"
+  SONAR_PROJECT_KEY: "co2_emission_project"
+
+before_script:
+  # Configuration de SSH
+  - mkdir -p ~/.ssh
+  - echo "$SSH_KEY" > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - ssh-keyscan -H 192.168.75.65 >> ~/.ssh/known_hosts
+
+# Étape de test (uniquement pour la branche main)
+test:
+  stage: test
+  script:
+    - npm install
+    # - npm test  
+  only:
+    - main
+  allow_failure: true  # Ne bloque pas le pipeline en cas d'échec
+
+# Étape de build (installation des dépendances)
+build:
+  stage: build
+  script:
+    - npm install
+    - echo "Vérification du projet..."
+  artifacts:
+    paths:
+      - package.json
+      - package-lock.json
+    expire_in: 1 day
+
+# Analyse SonarQube (uniquement pour main)
+sonar:
+  stage: sonar
+  image: sonarsource/sonar-scanner-cli:latest
+  variables:
+    SONAR_LOGIN: $SONAR_TOKEN
+  script:
+    - sonar-scanner
+  only:
+    - main
+
+# Déploiement du back (main + Back)
+deploy-back:
+  stage: deploy
+  script:
+    - echo "Déploiement sur la VM"
+    - chmod 600 $SSH_KEY
+    - scp -i $SSH_KEY -r $(ls -A | grep -Ev 'node_modules|.git|vue_basique') gitlabci@192.168.75.65:/opt/express/
+    - ssh -i $SSH_KEY gitlabci@192.168.75.65 "
+        cd /opt/express &&
+        npm install &&
+        pm2 restart $APP_NAME || pm2 start server.js --name $APP_NAME &&
+        pm2 save &&
+        pm2 status"
+
+  only:
+    - main
+    - Back
+
+# Déploiement du front (main + Front)
+deploy-front:
+  stage: deploy
+  script:
+    - echo "Déploiement du front sur la VM"
+    - chmod 600 $SSH_KEY
+
+    # Copier les fichiers du dossier vue_basique
+    - scp -i $SSH_KEY -r vue_basique/* gitlabci@192.168.75.65:/usr/share/nginx/html/
+
+  only:
+    - main
+    - Front
+    
+  environment:
+    name: production
+    url: http://192.168.75.65:3376
